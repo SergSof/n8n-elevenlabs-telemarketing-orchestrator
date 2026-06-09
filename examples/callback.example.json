@@ -1,0 +1,43 @@
+{
+  "type": "post_call_transcription",
+  "data": {
+    "conversation_id": "conv_example_123",
+    "agent_id": "agent_example_123",
+    "status": "done",
+    "analysis": {
+      "call_successful": "success",
+      "transcript_summary": "The test contact answered.",
+      "data_collection_results": {
+        "status": {
+          "value": "answered"
+        }
+      }
+    },
+    "metadata": {
+      "call_duration_secs": 42,
+      "termination_reason": "agent_hangup",
+      "phone_call": {
+        "call_sid": "sip_example_123"
+      }
+    },
+    "conversation_initiation_client_data": {
+      "dynamic_variables": {
+        "BusinessId": "YOUR_BUSINESS_ID",
+        "CampaignID": "YOUR_CAMPAIGN_ID",
+        "EntityId": "CRM_ENTITY_ID",
+        "TelOutgoingID": "CRM_OUTGOING_ID",
+        "status_map_json": "{\"answered\":\"10\",\"failed\":\"14\"}"
+      }
+    },
+    "transcript": [
+      {
+        "role": "agent",
+        "message": "Hello."
+      },
+      {
+        "role": "user",
+        "message": "This is a test response."
+      }
+    ]
+  }
+}

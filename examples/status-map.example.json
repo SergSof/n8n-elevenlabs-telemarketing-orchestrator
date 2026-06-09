@@ -1,0 +1,13 @@
+{
+  "answered": "10",
+  "no_answer": "1",
+  "busy": "2",
+  "invalid_phone": "3",
+  "fax": "4",
+  "answering_machine": "5",
+  "not_interested": "11",
+  "confirm": "12",
+  "call_back": "13",
+  "failed": "14",
+  "failed_start": "14"
+}

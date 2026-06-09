@@ -1,0 +1,924 @@
+{
+  "name": "Telemarketing ElevenLabs Full Flow v27 userID filter",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "telemarketing-elevenlabs-start",
+        "options": {}
+      },
+      "id": "f595e15e-6af7-4330-885e-d9b75d4f552a",
+      "name": "Start Or Stop Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        28896,
+        2752
+      ],
+      "webhookId": "38c97208-8953-49ce-a6d1-88b7116fbf13"
+    },
+    {
+      "parameters": {},
+      "id": "205447b2-c44a-4150-82bd-641059915364",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        28848,
+        2576
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "business_api_url",
+              "name": "business_api_url",
+              "value": "http://lease4.mekashron.com:33330/soap/IBusinessAPI",
+              "type": "string"
+            },
+            {
+              "id": "business_entity_id",
+              "name": "business_entity_id",
+              "value": "27827",
+              "type": "string"
+            },
+            {
+              "id": "business_username",
+              "name": "business_username",
+              "value": "442033973506",
+              "type": "string"
+            },
+            {
+              "id": "business_password",
+              "name": "business_password",
+              "value": "123456",
+              "type": "string"
+            },
+            {
+              "id": "BusinessId",
+              "name": "BusinessId",
+              "value": "1",
+              "type": "string"
+            },
+            {
+              "id": "CampaignID",
+              "name": "CampaignID",
+              "value": "12",
+              "type": "string"
+            },
+            {
+              "id": "userID",
+              "name": "userID",
+              "value": "1",
+              "type": "string"
+            },
+            {
+              "id": "station_id",
+              "name": "station_id",
+              "value": "1000",
+              "type": "string"
+            },
+            {
+              "id": "agent_id",
+              "name": "agent_id",
+              "value": "agent_1801ksmne3yxewfvjtgsfbf5g8d0",
+              "type": "string"
+            },
+            {
+              "id": "agent_phone_number_id",
+              "name": "agent_phone_number_id",
+              "value": "phnum_0901kq9t8q3mfnva3efwmj2a7yjj",
+              "type": "string"
+            },
+            {
+              "id": "limit_count",
+              "name": "limit_count",
+              "value": "1",
+              "type": "string"
+            },
+            {
+              "id": "command",
+              "name": "command",
+              "value": "start",
+              "type": "string"
+            },
+            {
+              "id": "auto_continue_after_callback",
+              "name": "auto_continue_after_callback",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "self_start_webhook_url",
+              "name": "self_start_webhook_url",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "elevenlabs_api_key_for_crm",
+              "name": "elevenlabs_api_key_for_crm",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "default_final_status_id",
+              "name": "default_final_status_id",
+              "value": "0",
+              "type": "string"
+            },
+            {
+              "id": "fixed_no_answer_tStatusID",
+              "name": "fixed_no_answer_tStatusID",
+              "value": "1",
+              "type": "string"
+            },
+            {
+              "id": "fixed_busy_tStatusID",
+              "name": "fixed_busy_tStatusID",
+              "value": "2",
+              "type": "string"
+            },
+            {
+              "id": "fixed_answering_machine_tStatusID",
+              "name": "fixed_answering_machine_tStatusID",
+              "value": "5",
+              "type": "string"
+            },
+            {
+              "id": "not_interested_status_id",
+              "name": "not_interested_status_id",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "confirm_status_id",
+              "name": "confirm_status_id",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "call_back_status_id",
+              "name": "call_back_status_id",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "failed_start_status_id",
+              "name": "failed_start_status_id",
+              "value": "0",
+              "type": "string"
+            },
+            {
+              "id": "fixed_invalid_phone_tStatusID",
+              "name": "fixed_invalid_phone_tStatusID",
+              "value": "3",
+              "type": "string"
+            },
+            {
+              "id": "fixed_fax_tStatusID",
+              "name": "fixed_fax_tStatusID",
+              "value": "4",
+              "type": "string"
+            },
+            {
+              "id": "answered_status_id",
+              "name": "answered_status_id",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "failed_status_id",
+              "name": "failed_status_id",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f3bb9827-f9fe-4f68-80e7-975d1eeb7990",
+      "name": "Set Manual Test Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        29088,
+        2576
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Webhook data can arrive in body, query parameters, route params, or top-level fields.\n// Roma sends values as parameters, so do not read only $json.body.\nconst topLevel = Object.fromEntries(\n  Object.entries($json || {}).filter(([k]) => !['body', 'query', 'params', 'headers'].includes(k))\n);\nconst payload = {\n  ...($json.query || {}),\n  ...($json.params || {}),\n  ...($json.body || {}),\n  ...topLevel,\n};\n\nfunction pick(...values) {\n  for (const v of values) {\n    if (v !== undefined && v !== null && String(v) !== '' && String(v) !== 'undefined') return v;\n  }\n  return undefined;\n}\n\nfunction nowIso() {\n  return new Date().toISOString();\n}\n\nfunction normalizeStatusKey(key) {\n  return String(key ?? '')\n    .trim()\n    .toLowerCase()\n    .replace(/[\\s\\-]+/g, '_')\n    .replace(/[^a-z0-9_]/g, '');\n}\n\nfunction addStatus(out, key, value) {\n  const k = normalizeStatusKey(key);\n  if (!k) return;\n  if (value === undefined || value === null || String(value) === '' || String(value) === 'undefined') return;\n  out[k] = String(value);\n}\n\nfunction parseJsonObject(v) {\n  if (!v) return {};\n  if (typeof v === 'object' && !Array.isArray(v)) return v;\n  if (typeof v === 'string') {\n    try {\n      const parsed = JSON.parse(v);\n      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) return parsed;\n    } catch (e) {}\n  }\n  return {};\n}\n\nfunction normalizeBisapiUrl(v) {\n  let url = String(v ?? '').trim();\n  if (!url || url === 'undefined') return 'http://lease4.mekashron.com:33330/soap/IBusinessAPI';\n  url = url.replace(/\\/+$/, '');\n  if (/\\/soap\\/IBusinessAPI$/i.test(url)) return url;\n  return `${url}/soap/IBusinessAPI`;\n}\n\nfunction makeScopeKey(bisapiUrl, businessId, campaignId) {\n  return `${normalizeBisapiUrl(bisapiUrl)}:${businessId}:${campaignId}`;\n}\n\nfunction toMs(v) {\n  const ms = Date.parse(String(v ?? ''));\n  return Number.isFinite(ms) ? ms : null;\n}\n\nfunction normalizeStopRecord(raw) {\n  // Backward compatibility with the old boolean stop flag.\n  // Old true has no timestamp, so we treat it as very old; new runs ignore it.\n  if (raw === true) {\n    return {\n      active: true,\n      updated_at: '1970-01-01T00:00:00.000Z',\n      legacy_boolean: true,\n    };\n  }\n\n  if (raw === false || raw === undefined || raw === null) {\n    return {\n      active: false,\n      updated_at: '',\n      legacy_boolean: raw === false,\n    };\n  }\n\n  if (typeof raw === 'object') {\n    return {\n      active: raw.active === true,\n      updated_at: String(raw.updated_at || raw.stopped_at || ''),\n      run_started_at: String(raw.run_started_at || ''),\n      source_command: String(raw.source_command || ''),\n      raw,\n    };\n  }\n\n  return {\n    active: false,\n    updated_at: '',\n    raw,\n  };\n}\n\nfunction isStopActiveForRun(rawStop, runStartedAt) {\n  const stop = normalizeStopRecord(rawStop);\n  if (!stop.active) {\n    return { active: false, stale: false, stop };\n  }\n\n  const stopMs = toMs(stop.updated_at);\n  const runMs = toMs(runStartedAt);\n\n  // If the current run has no timestamp, be conservative and honor active stop.\n  if (runMs === null) {\n    return { active: true, stale: false, stop, reason: 'no_run_started_at' };\n  }\n\n  // Legacy boolean true is considered stale for any new timestamped run.\n  if (stop.legacy_boolean === true) {\n    return { active: false, stale: true, stop, reason: 'legacy_boolean_stop_is_stale' };\n  }\n\n  // If active stop has no valid timestamp, be conservative.\n  if (stopMs === null) {\n    return { active: true, stale: false, stop, reason: 'stop_has_no_valid_updated_at' };\n  }\n\n  if (stopMs >= runMs) {\n    return { active: true, stale: false, stop, reason: 'stop_after_or_equal_run_start' };\n  }\n\n  return { active: false, stale: true, stop, reason: 'stop_before_run_start' };\n}\n\nfunction getStopCheck(stopFlags, key, legacyKey, runStartedAt) {\n  const primary = isStopActiveForRun(stopFlags[key], runStartedAt);\n  const legacy = isStopActiveForRun(stopFlags[legacyKey], runStartedAt);\n  const active = primary.active || legacy.active;\n\n  return {\n    active,\n    stop_flag: active,\n    should_continue: !active,\n    primary,\n    legacy,\n    stop_updated_at: primary.stop.updated_at || legacy.stop.updated_at || '',\n    stale_stop_ignored: Boolean(primary.stale || legacy.stale),\n  };\n}\n\nfunction normalizeIncomingStatusMap(payload) {\n  const out = {};\n\n  // Fixed CRM tStatusID values from curator.\n  addStatus(out, 'no_answer', 1);\n  addStatus(out, 'busy', 2);\n  addStatus(out, 'invalid_phone', 3);\n  addStatus(out, 'fax', 4);\n  addStatus(out, 'answering_machine', 5);\n\n  const maps = [\n    parseJsonObject(payload.status_map),\n    parseJsonObject(payload.statusMap),\n    parseJsonObject(payload.statuses),\n    parseJsonObject(payload.status_ids),\n    parseJsonObject(payload.statusIds),\n    parseJsonObject(payload.crm_status_map),\n    parseJsonObject(payload.crmStatusMap),\n  ];\n\n  for (const m of maps) {\n    for (const [k, v] of Object.entries(m)) addStatus(out, k, v);\n  }\n\n  addStatus(out, 'no_answer', pick(payload.fixed_no_answer_tStatusID, payload.no_answer_tStatusID, payload.no_answer_status_id, payload.noAnswerStatusId));\n  addStatus(out, 'busy', pick(payload.fixed_busy_tStatusID, payload.busy_tStatusID, payload.busy_status_id, payload.busyStatusId));\n  addStatus(out, 'invalid_phone', pick(payload.fixed_invalid_phone_tStatusID, payload.invalid_phone_tStatusID, payload.invalid_phone_status_id, payload.invalidPhoneStatusId));\n  addStatus(out, 'fax', pick(payload.fixed_fax_tStatusID, payload.fax_tStatusID, payload.fax_status_id, payload.faxStatusId));\n  addStatus(out, 'answering_machine', pick(payload.fixed_answering_machine_tStatusID, payload.answering_machine_tStatusID, payload.answering_machine_status_id, payload.answeringMachineStatusId));\n\n  addStatus(out, 'answered', pick(payload.answered_status_id, payload.answeredStatusId, payload.completed_status_id, payload.completedStatusId, payload.success_status_id, payload.successStatusId));\n  addStatus(out, 'success', pick(payload.success_status_id, payload.successStatusId, payload.answered_status_id, payload.answeredStatusId, payload.completed_status_id, payload.completedStatusId));\n  addStatus(out, 'completed', pick(payload.completed_status_id, payload.completedStatusId, payload.answered_status_id, payload.answeredStatusId, payload.success_status_id, payload.successStatusId));\n  addStatus(out, 'failed', pick(payload.failed_status_id, payload.failedStatusId, payload.fail_status_id, payload.failStatusId));\n  addStatus(out, 'failed_start', pick(payload.failed_start_status_id, payload.failedStartStatusId, payload.failed_outbound_status_id, payload.failedOutboundStatusId));\n  addStatus(out, 'not_interested', pick(payload.not_interested_status_id, payload.notInterestedStatusId));\n  addStatus(out, 'confirm', pick(payload.confirm_status_id, payload.confirmStatusId));\n  addStatus(out, 'call_back', pick(payload.call_back_status_id, payload.callback_status_id, payload.callBackStatusId, payload.callbackStatusId));\n\n  return out;\n}\n\nfunction mergeStatusMaps(...maps) {\n  const out = {};\n  for (const m of maps) {\n    if (!m || typeof m !== 'object') continue;\n    for (const [k, v] of Object.entries(m)) addStatus(out, k, v);\n  }\n  return out;\n}\n\nfunction normalizeEntityIds(v) {\n  if (v === undefined || v === null || String(v) === '' || String(v) === 'undefined') return [];\n  const raw = Array.isArray(v) ? v : String(v).split(',');\n  return raw.map(x => String(x).trim()).filter(Boolean);\n}\n\nfunction positiveInt(v, fallback = 1) {\n  const n = Math.floor(Number(v));\n  if (!Number.isFinite(n) || n < 1) return fallback;\n  return n;\n}\n\nfunction clampInt(v, min, max, fallback = min) {\n  const n = positiveInt(v, fallback);\n  return Math.max(min, Math.min(max, n));\n}\n\nfunction boolParam(v, fallback = false) {\n  if (v === undefined || v === null || String(v) === '' || String(v) === 'undefined') return fallback;\n  const s = String(v).trim().toLowerCase();\n  if (['true', '1', 'yes', 'on'].includes(s)) return true;\n  if (['false', '0', 'no', 'off'].includes(s)) return false;\n  return Boolean(v);\n}\n\nconst BusinessId = String(pick(payload.BusinessId, payload.business_id, payload.businessId, 1));\nconst CampaignID = String(pick(payload.CampaignID, payload.campaignID, payload.campaign_id, 12));\nconst incomingUserID = pick(payload.userID, payload.userId, payload.UserID);\nconst incomingUserIDProvided = incomingUserID !== undefined && incomingUserID !== null && String(incomingUserID) !== '' && String(incomingUserID) !== 'undefined';\nconst userID = String(pick(incomingUserID, 1));\nconst command = String(pick(payload.command, 'start')).toLowerCase().trim();\nconst business_api_url = normalizeBisapiUrl(pick(payload.BISAPI_URL, payload.bisapi_url, payload.business_api_url, payload.crm_url, payload.web_service_url));\nconst key = makeScopeKey(business_api_url, BusinessId, CampaignID);\nconst legacyKey = `${BusinessId}:${CampaignID}`;\n\nconst staticData = $getWorkflowStaticData('global');\nstaticData.telemarketing = staticData.telemarketing || {};\nstaticData.telemarketing.stopFlags = staticData.telemarketing.stopFlags || {};\nstaticData.telemarketing.activeCalls = staticData.telemarketing.activeCalls || {};\nstaticData.telemarketing.lastSummaries = staticData.telemarketing.lastSummaries || {};\nstaticData.telemarketing.completedOutgoing = staticData.telemarketing.completedOutgoing || {};\nstaticData.telemarketing.campaignStatusMaps = staticData.telemarketing.campaignStatusMaps || {};\nstaticData.telemarketing.currentRuns = staticData.telemarketing.currentRuns || {};\n\nconst currentRun = staticData.telemarketing.currentRuns[key] || staticData.telemarketing.currentRuns[legacyKey] || {};\nconst incomingRunStartedAt = pick(payload.run_started_at, payload.runStartedAt, payload.current_run_started_at, payload.currentRunStartedAt);\nconst runStartedAt = String(pick(\n  incomingRunStartedAt,\n  command === 'continue' ? currentRun.run_started_at : undefined,\n  command === 'start' || command === 'resume' ? nowIso() : undefined,\n  ''\n));\n\nif (command === 'reset_completed') {\n  const prefixes = [`${key}:`, `${legacyKey}:`];\n  let removed = 0;\n  for (const k of Object.keys(staticData.telemarketing.completedOutgoing)) {\n    if (prefixes.some(prefix => k.startsWith(prefix))) {\n      delete staticData.telemarketing.completedOutgoing[k];\n      removed++;\n    }\n  }\n  return [{ json: { command, BusinessId, CampaignID, userID, business_api_url, status_map_storage_key: key, should_continue: false, message: `Completed outgoing guard reset for campaign ${key}`, removed_completed_records: removed } }];\n}\n\nif (command === 'reset_status_map') {\n  delete staticData.telemarketing.campaignStatusMaps[key];\n  delete staticData.telemarketing.campaignStatusMaps[legacyKey];\n  return [{ json: { command, BusinessId, CampaignID, userID, business_api_url, status_map_storage_key: key, should_continue: false, message: `Status map reset for campaign ${key}` } }];\n}\n\nconst fixedAndIncomingStatusMap = normalizeIncomingStatusMap(payload);\nconst storedStatusMap = staticData.telemarketing.campaignStatusMaps[key]?.status_map || staticData.telemarketing.campaignStatusMaps[legacyKey]?.status_map || {};\nconst status_map = mergeStatusMaps(fixedAndIncomingStatusMap, storedStatusMap, fixedAndIncomingStatusMap);\n\nstaticData.telemarketing.campaignStatusMaps[key] = {\n  BISAPI_URL: business_api_url,\n  BusinessId,\n  CampaignID,\n  status_map,\n  updated_at: nowIso(),\n  source: 'start_webhook_or_manual_input',\n};\n\nif (command === 'show_status_map' || command === 'save_status_map') {\n  return [{ json: { command, BusinessId, CampaignID, userID, business_api_url, status_map_storage_key: key, should_continue: false, status_map, message: `Status map stored for campaign ${key}` } }];\n}\n\nif (command === 'stop') {\n  const stoppedAt = nowIso();\n  const stopRecord = {\n    active: true,\n    updated_at: stoppedAt,\n    run_started_at: String(pick(incomingRunStartedAt, currentRun.run_started_at, '')),\n    source_command: 'stop',\n    BusinessId,\n    CampaignID,\n    userID,\n    BISAPI_URL: business_api_url,\n  };\n\n  staticData.telemarketing.stopFlags[key] = stopRecord;\n  staticData.telemarketing.stopFlags[legacyKey] = stopRecord;\n\n  return [{\n    json: {\n      command,\n      BusinessId,\n      CampaignID,\n      userID,\n      business_api_url,\n      BISAPI_URL: business_api_url,\n      stop_key: key,\n      legacy_stop_key: legacyKey,\n      status_map_storage_key: key,\n      run_started_at: stopRecord.run_started_at,\n      stop_flag: true,\n      stop_updated_at: stoppedAt,\n      should_continue: false,\n      message: `Stop flag set for campaign ${key}`,\n    }\n  }];\n}\n\nif (command === 'start' || command === 'resume' || (command === 'continue' && runStartedAt)) {\n  const runRecord = {\n    run_started_at: runStartedAt || nowIso(),\n    updated_at: nowIso(),\n    command,\n    BusinessId,\n    CampaignID,\n    userID,\n    BISAPI_URL: business_api_url,\n  };\n  staticData.telemarketing.currentRuns[key] = runRecord;\n  staticData.telemarketing.currentRuns[legacyKey] = runRecord;\n}\n\nconst stopCheck = getStopCheck(staticData.telemarketing.stopFlags, key, legacyKey, runStartedAt);\n\nconst defaultFinalStatusId = String(pick(\n  payload.default_final_status_id,\n  payload.final_status_id,\n  status_map.answered,\n  status_map.success,\n  status_map.completed,\n  '0'\n));\n\nconst failedStartStatusId = String(pick(\n  payload.failed_start_status_id,\n  payload.failed_outbound_status_id,\n  status_map.failed_start,\n  status_map.failed,\n  defaultFinalStatusId,\n  '0'\n));\n\nconst entity_ids = normalizeEntityIds(pick(\n  payload.EntityIDs,\n  payload.entity_ids,\n  payload.entityIDs,\n  payload.EntityId,\n  payload.EntityID,\n  payload.entity_id,\n  payload.entityID\n));\n\nconst defaultSelfStartWebhookUrl = 'https://n8n.mekashron.com/webhook/telemarketing-elevenlabs-start';\n\nconst autoContinueAfterCallback = boolParam(pick(\n  payload.auto_continue_after_callback,\n  payload.autoContinueAfterCallback,\n  payload.auto_continue,\n  payload.autoContinue\n), false);\n\nconst selfStartWebhookUrl = autoContinueAfterCallback\n  ? String(pick(\n      payload.self_start_webhook_url,\n      payload.selfStartWebhookUrl,\n      payload.self_start_url,\n      payload.selfStartUrl,\n      defaultSelfStartWebhookUrl\n    ))\n  : String(pick(\n      payload.self_start_webhook_url,\n      payload.selfStartWebhookUrl,\n      payload.self_start_url,\n      payload.selfStartUrl,\n      ''\n    ));\n\nconst requestedParallelCalls = positiveInt(pick(\n  payload['parallel-calls'],\n  payload.parallel_calls,\n  payload.parallelCalls,\n  payload.limit_count,\n  payload.limitCount,\n  1\n), 1);\n\nconst maxParallelCalls = 3;\nconst parallelCalls = Math.min(requestedParallelCalls, maxParallelCalls);\n\nconst requestedCrmFetchLimit = positiveInt(pick(\n  payload.crm_fetch_limit,\n  payload.fetch_limit,\n  payload.queue_fetch_limit,\n  payload.crmFetchLimit,\n  payload.fetchLimit,\n  100\n), 100);\n\nconst crmFetchLimit = clampInt(requestedCrmFetchLimit, parallelCalls, 100, 100);\n\nconst out = {\n  command,\n  internal_auto_continue: boolParam(payload.internal_auto_continue, false),\n  BusinessId,\n  CampaignID,\n  userID,\n  incoming_user_id_provided: incomingUserIDProvided,\n  user_id_filter_enabled: incomingUserIDProvided,\n  BISAPI_URL: business_api_url,\n  business_api_url,\n  stop_key: key,\n  legacy_stop_key: legacyKey,\n  run_started_at: runStartedAt,\n  current_run_started_at: runStartedAt,\n  stop_flag: stopCheck.stop_flag,\n  should_continue: stopCheck.should_continue,\n  stop_updated_at: stopCheck.stop_updated_at,\n  stale_stop_ignored: stopCheck.stale_stop_ignored,\n  stop_check_debug: stopCheck,\n  business_entity_id: String(pick(payload.business_entity_id, payload.ol_EntityID, payload.ol_EntityId, '27827')),\n  business_username: String(pick(payload.business_username, payload.ol_Username, payload.ol_UserName, '442033973506')),\n  business_password: String(pick(payload.business_password, payload.ol_Password, payload.ol_password, '123456')),\n  station_id: String(pick(payload.station_id, payload.StationID, '1000')),\n  list_type: String(pick(payload.list_type, 0)),\n  limit_from: String(pick(payload.limit_from, 0)),\n  limit_count: String(crmFetchLimit),\n  crm_fetch_limit: String(crmFetchLimit),\n  requested_crm_fetch_limit: String(requestedCrmFetchLimit),\n  parallel_calls: String(parallelCalls),\n  requested_parallel_calls: String(requestedParallelCalls),\n  max_parallel_calls: String(maxParallelCalls),\n  parallel_calls_capped: requestedParallelCalls > parallelCalls,\n  entity_ids,\n  agent_id: String(pick(payload.agent_id, 'agent_1801ksmne3yxewfvjtgsfbf5g8d0')),\n  agent_phone_number_id: String(pick(payload.agent_phone_number_id, 'phnum_0901kq9t8q3mfnva3efwmj2a7yjj')),\n  elevenlabs_api_key_for_crm: String(pick(payload.elevenlabs_api_key_for_crm, payload.api_key, '')),\n  default_final_status_id: defaultFinalStatusId,\n  failed_start_status_id: failedStartStatusId,\n  auto_continue_after_callback: autoContinueAfterCallback,\n  self_start_webhook_url: selfStartWebhookUrl,\n  status_map,\n  status_map_storage_key: key,\n  use_completed_guard: ['true','1','yes','on'].includes(String(pick(payload.use_completed_guard, payload.useCompletedGuard, false)).trim().toLowerCase()),\n};\n\nreturn [{ json: out }];"
+      },
+      "id": "8fb604ec-adb0-4d28-8fc2-1c392d3903ec",
+      "name": "Normalize Start Input + Stop Flag",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        29344,
+        2640
+      ],
+      "notes": "v26: merge webhook body/query/params/top-level; command=stop and parallel-calls work when sent as URL/query parameters. parallel-calls defaults to 1.\nv27: if userID is provided in start request/querystring, add t.userID filter to Telemarketing_Outgoing_Get."
+    },
+    {
+      "parameters": {
+        "jsCode": "\nif (!$json.should_continue) {\n  return [];\n}\nreturn items;\n"
+      },
+      "id": "16c1d3c9-9d62-47dc-8273-93516521d96f",
+      "name": "Gate: Stop Flag Is False",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        29568,
+        2640
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "function esc(v) {\n  return String(v ?? '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;')\n    .replace(/'/g, '&apos;');\n}\nfunction arr(items) {\n  return items.map(v => `<item xsi:type=\"xsd:string\">${esc(v)}</item>`).join('\\n');\n}\n\nconst fields = [\n  't.TelOutgoingID',\n  't.CampaignID',\n  't.EntityID',\n  't.StationID',\n  't.userID',\n  't.ScheduleTo',\n  'e.Phone',\n  'e.Mobile',\n  'e.FirstName',\n  'e.LastName',\n  'e.Email',\n];\n\nconst filterFields = ['t.CampaignID'];\nconst filterValues = [String($json.CampaignID)];\n\n// Curator decision: if userID is provided in the start request/querystring,\n// it must be used in Telemarketing_Outgoing_Get filtering.\n// Do not add this filter when userID is only the internal fallback/default.\nif ($json.user_id_filter_enabled && String($json.userID ?? '').trim() !== '') {\n  filterFields.push('t.userID');\n  filterValues.push(String($json.userID));\n}\n\n// Optional direct EntityID filter. Use only when the CRM explicitly sends EntityID(s).\n// There is no hardcoded EntityID here anymore.\nif (Array.isArray($json.entity_ids) && $json.entity_ids.length === 1) {\n  filterFields.push('t.EntityID');\n  filterValues.push(String($json.entity_ids[0]));\n}\n\nconst soapBody = `<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"\n  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n  xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n  xmlns:ns1=\"urn:BusinessApiIntf-IBusinessAPI\"\n  xmlns:ns2=\"urn:CommonWSTypes\">\n  <soap:Body>\n    <ns1:Telemarketing_Outgoing_Get soap:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n      <ol_EntityID xsi:type=\"xsd:int\">${esc($json.business_entity_id)}</ol_EntityID>\n      <ol_Username xsi:type=\"xsd:string\">${esc($json.business_username)}</ol_Username>\n      <ol_Password xsi:type=\"xsd:string\">${esc($json.business_password)}</ol_Password>\n      <BusinessId xsi:type=\"xsd:int\">${esc($json.BusinessId)}</BusinessId>\n      <list_type xsi:type=\"xsd:int\">${esc($json.list_type || 0)}</list_type>\n      <Fields xsi:type=\"ns2:ArrayOfString\">\n        ${arr(fields)}\n      </Fields>\n      <FilterFields xsi:type=\"ns2:ArrayOfString\">\n        ${arr(filterFields)}\n      </FilterFields>\n      <FilterValues xsi:type=\"ns2:ArrayOfString\">\n        ${arr(filterValues)}\n      </FilterValues>\n      <LimitFrom xsi:type=\"xsd:int\">${esc($json.limit_from || 0)}</LimitFrom>\n      <LimitCount xsi:type=\"xsd:int\">${esc($json.limit_count || 1)}</LimitCount>\n    </ns1:Telemarketing_Outgoing_Get>\n  </soap:Body>\n</soap:Envelope>`;\n\nreturn [{ json: { ...$json, crm_filter_fields: filterFields, crm_filter_values: filterValues, soapBody } }];"
+      },
+      "id": "5a4d7ed3-6e8d-4762-a92d-2aed8e8295a7",
+      "name": "Build Outgoing_Get SOAP",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        29792,
+        2640
+      ],
+      "notes": "v27: if userID is provided in start request/querystring, add t.userID filter to Telemarketing_Outgoing_Get."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.business_api_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "text/xml"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "={{ $json.soapBody }}",
+        "options": {}
+      },
+      "id": "d47b5c68-f092-4f5c-8d95-1f342bbbbc15",
+      "name": "Telemarketing_Outgoing_Get",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        30016,
+        2640
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const base = $items('Build Outgoing_Get SOAP')[0].json;\nconst raw = $json.data ?? $json.body ?? $json;\nconst xml = typeof raw === 'string' ? raw : JSON.stringify(raw);\n\nfunction unesc(s) {\n  return String(s)\n    .replace(/&lt;/g, '<')\n    .replace(/&gt;/g, '>')\n    .replace(/&amp;/g, '&')\n    .replace(/&quot;/g, '\"')\n    .replace(/&apos;/g, \"'\")\n    .trim();\n}\n\nfunction isUsablePhone(v) {\n  const phone = String(v ?? '').trim();\n  return phone && phone !== '0';\n}\n\nfunction isFreeStation(v) {\n  const stationId = String(v ?? '').trim().toLowerCase();\n  return stationId === '' || stationId === '0' || stationId === 'null' || stationId === 'undefined';\n}\n\nfunction boolValue(v) {\n  return ['true', '1', 'yes', 'on'].includes(String(v ?? '').trim().toLowerCase());\n}\n\nfunction positiveInt(v, fallback = 1) {\n  const n = Math.floor(Number(v));\n  if (!Number.isFinite(n) || n < 1) return fallback;\n  return n;\n}\n\nfunction cappedParallel(v, fallback = 1) {\n  return Math.min(positiveInt(v, fallback), 3);\n}\n\nfunction rawScheduleTo(row) {\n  return row.ScheduleTo ?? row.scheduleTo ?? row.schedule_to ?? row.ScheduleDate ?? row.schedule_date ?? '';\n}\n\nfunction parseScheduleTo(v) {\n  const raw = String(v ?? '').trim();\n  const emptyValues = ['', '0', 'null', 'undefined', '0000-00-00', '0000-00-00 00:00:00'];\n\n  if (emptyValues.includes(raw.toLowerCase())) {\n    return { raw, status: 'new_no_schedule', timestamp: null, date_iso: '' };\n  }\n\n  let normalized = raw;\n\n  // Common CRM/MySQL format: 2026-06-04 13:20:00.\n  if (/^\\d{4}-\\d{2}-\\d{2}\\s+\\d{2}:\\d{2}/.test(normalized)) {\n    normalized = normalized.replace(/\\s+/, 'T');\n  }\n\n  // Common EU format fallback: 04/06/2026 13:20:00 or 04.06.2026 13:20:00.\n  const eu = normalized.match(/^(\\d{2})[./-](\\d{2})[./-](\\d{4})(?:\\s+|T)?(\\d{2}:\\d{2}(?::\\d{2})?)?/);\n  if (eu) {\n    const [, dd, mm, yyyy, time = '00:00:00'] = eu;\n    normalized = `${yyyy}-${mm}-${dd}T${time}`;\n  }\n\n  const ts = Date.parse(normalized);\n\n  if (!Number.isFinite(ts)) {\n    // Do not block the queue because of an unexpected CRM date format.\n    return { raw, status: 'unknown_schedule_format_treated_as_new', timestamp: null, date_iso: '' };\n  }\n\n  return { raw, status: 'scheduled', timestamp: ts, date_iso: new Date(ts).toISOString() };\n}\n\nfunction schedulePriority(row, nowMs) {\n  const parsed = parseScheduleTo(rawScheduleTo(row));\n  const graceMs = 60 * 1000;\n\n  if (parsed.status === 'scheduled') {\n    if (parsed.timestamp > nowMs + graceMs) {\n      return { ...parsed, bucket: 'future', selectable: false, priority: 99 };\n    }\n\n    return { ...parsed, bucket: 'due_schedule', selectable: true, priority: 0 };\n  }\n\n  return { ...parsed, bucket: 'new_no_schedule', selectable: true, priority: 1 };\n}\n\nconst useCompletedGuard = boolValue(base.use_completed_guard);\n\n// Second safety cap: even if Normalize is bypassed or changed, Pick Free Record never starts >3 calls.\nconst parallelCalls = cappedParallel(base.parallel_calls ?? 1, 1);\nconst nowMs = Date.now();\n\nconst staticData = $getWorkflowStaticData('global');\nstaticData.telemarketing = staticData.telemarketing || {};\nstaticData.telemarketing.completedOutgoing = staticData.telemarketing.completedOutgoing || {};\nstaticData.telemarketing.activeCalls = staticData.telemarketing.activeCalls || {};\n\nfunction completedKeyFor(row) {\n  const telOutgoingId = String(row.TelOutgoingID ?? row.TelOutgoingID_1 ?? '').trim();\n  if (!telOutgoingId) return '';\n  const scope = base.status_map_storage_key || `${base.BISAPI_URL || base.business_api_url}:${base.BusinessId}:${base.CampaignID}`;\n  return `${scope}:${telOutgoingId}`;\n}\n\nfunction legacyCompletedKeyFor(row) {\n  const telOutgoingId = String(row.TelOutgoingID ?? row.TelOutgoingID_1 ?? '').trim();\n  if (!telOutgoingId) return '';\n  return `${base.BusinessId}:${base.CampaignID}:${telOutgoingId}`;\n}\n\nfunction isAlreadyCompleted(row) {\n  if (!useCompletedGuard) return false;\n  const key = completedKeyFor(row);\n  const legacyKey = legacyCompletedKeyFor(row);\n  return Boolean((key && staticData.telemarketing.completedOutgoing[key]) || (legacyKey && staticData.telemarketing.completedOutgoing[legacyKey]));\n}\n\nconst m = xml.match(/<return[^>]*>([\\s\\S]*?)<\\/return>/);\nconst returnText = m ? unesc(m[1]) : '';\n\nlet rows = [];\ntry {\n  rows = returnText ? JSON.parse(returnText) : [];\n} catch (e) {\n  throw new Error(`Cannot parse Telemarketing_Outgoing_Get return as JSON: ${returnText.slice(0, 500)}`);\n}\n\nif (!Array.isArray(rows) || rows.length === 0) {\n  console.log('Telemarketing_Outgoing_Get returned no rows.');\n  return [];\n}\n\nconst skippedInfo = [];\nconst candidates = [];\n\nrows.forEach((r, originalIndex) => {\n  const phone = String(r.Mobile || r.Phone || '').trim();\n  const stationId = r.StationID ?? r.stationID ?? r.station_id;\n  const usablePhone = isUsablePhone(phone);\n  const freeStation = isFreeStation(stationId);\n  const alreadyCompleted = isAlreadyCompleted(r);\n  const schedule = schedulePriority(r, nowMs);\n\n  const selectable = usablePhone && freeStation && !alreadyCompleted && schedule.selectable;\n\n  const info = {\n    TelOutgoingID: r.TelOutgoingID ?? r.TelOutgoingID_1 ?? '',\n    EntityID: r.EntityID ?? r.entityID ?? r.EntityId ?? '',\n    Phone: r.Phone ?? '',\n    Mobile: r.Mobile ?? '',\n    StationID: r.StationID ?? r.stationID ?? r.station_id ?? '',\n    ScheduleTo: rawScheduleTo(r),\n    schedule_bucket: schedule.bucket,\n    schedule_status: schedule.status,\n    schedule_iso: schedule.date_iso,\n    usable_phone: usablePhone,\n    free_station: freeStation,\n    use_completed_guard: useCompletedGuard,\n    already_completed_in_workflow: alreadyCompleted,\n    selectable,\n    selected_for_parallel_call: false,\n  };\n\n  if (selectable) {\n    candidates.push({ record: r, originalIndex, schedule, info });\n  }\n\n  skippedInfo.push(info);\n});\n\n// Priority required by curator:\n// 1) due ScheduleTo first, oldest due first;\n// 2) new/no ScheduleTo after that, preserving CRM order;\n// 3) future ScheduleTo is skipped.\ncandidates.sort((a, b) => {\n  if (a.schedule.priority !== b.schedule.priority) return a.schedule.priority - b.schedule.priority;\n  if (a.schedule.priority === 0) return (a.schedule.timestamp || 0) - (b.schedule.timestamp || 0);\n  return a.originalIndex - b.originalIndex;\n});\n\nconst selected = candidates.slice(0, parallelCalls);\nfor (const c of selected) c.info.selected_for_parallel_call = true;\n\nif (selected.length === 0) {\n  console.log(`No selectable record found. Returned rows are locked, have no phone, are completed by enabled guard, or have future ScheduleTo: ${JSON.stringify(skippedInfo)}`);\n  return [];\n}\n\nreturn selected.map(({ record, schedule }, index) => {\n  const to_number = String(record.Mobile || record.Phone || '').trim();\n  if (!to_number || to_number === '0') {\n    throw new Error(`Selected record has no usable Phone/Mobile: ${JSON.stringify(record)}`);\n  }\n\n  const EntityId = String(record.EntityID ?? record.entityID ?? record.EntityId ?? '');\n  const summaryKey = `${base.status_map_storage_key || `${base.BusinessId}:${base.CampaignID}`}:${EntityId}`;\n  const legacySummaryKey = `${base.BusinessId}:${base.CampaignID}:${EntityId}`;\n  const previous_call_summary = staticData.telemarketing?.lastSummaries?.[summaryKey]?.summary || staticData.telemarketing?.lastSummaries?.[legacySummaryKey]?.summary || '';\n\n  return {\n    json: {\n      ...base,\n      crm_get_raw_return: returnText,\n      pick_free_record_debug: skippedInfo,\n      crm_rows_received: rows.length,\n      crm_fetch_limit_used: base.crm_fetch_limit || base.limit_count || '',\n      parallel_calls_requested: parallelCalls,\n      parallel_calls_selected: selected.length,\n      parallel_call_index: index + 1,\n      selected_record: record,\n      selected_schedule_bucket: schedule.bucket,\n      selected_schedule_status: schedule.status,\n      selected_schedule_to: schedule.raw,\n      selected_schedule_iso: schedule.date_iso,\n      TelOutgoingID: String(record.TelOutgoingID ?? record.TelOutgoingID_1 ?? ''),\n      EntityId,\n      selected_station_id: String(record.StationID ?? record.stationID ?? record.station_id ?? ''),\n      to_number,\n      Mobile: String(record.Mobile ?? ''),\n      Phone: String(record.Phone ?? ''),\n      FirstName: String(record.FirstName ?? ''),\n      LastName: String(record.LastName ?? ''),\n      Email: String(record.Email ?? ''),\n      previous_call_summary,\n      call_started_at: new Date().toISOString(),\n    }\n  };\n});"
+      },
+      "id": "a02d01c2-be3e-4754-8975-f86746e54982",
+      "name": "Pick Free Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        30208,
+        2640
+      ],
+      "notes": "v26: returns up to parallel_calls selected free records as separate items. completedOutgoing guard remains disabled by default."
+    },
+    {
+      "parameters": {
+        "jsCode": "function esc(v) {\n  return String(v ?? '')\n    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;').replace(/'/g, '&apos;');\n}\nfunction arr(items) { return items.map(v => `<item xsi:type=\"xsd:string\">${esc(v)}</item>`).join('\\n'); }\nfunction dt(d = new Date()) {\n  const pad = n => String(n).padStart(2, '0');\n  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;\n}\n\nreturn items.map(item => {\n  const j = item.json;\n  const now = dt();\n  const names = ['StationID', 'StationTimeOut', 'userId'];\n  const values = [j.station_id || '1000', now, j.userID || '1'];\n  const soapBody = `<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"\n    xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n    xmlns:ns1=\"urn:BusinessApiIntf-IBusinessAPI\"\n    xmlns:ns2=\"urn:CommonWSTypes\">\n    <soap:Body>\n      <ns1:Telemarketing_Status_Set soap:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n        <ol_EntityID xsi:type=\"xsd:int\">${esc(j.business_entity_id)}</ol_EntityID>\n        <ol_Username xsi:type=\"xsd:string\">${esc(j.business_username)}</ol_Username>\n        <ol_Password xsi:type=\"xsd:string\">${esc(j.business_password)}</ol_Password>\n        <campaignID xsi:type=\"xsd:int\">${esc(j.CampaignID)}</campaignID>\n        <EntityId xsi:type=\"xsd:int\">${esc(j.EntityId)}</EntityId>\n        <StatusId xsi:type=\"xsd:int\">0</StatusId>\n        <CallStarted xsi:type=\"xsd:string\">${esc(now)}</CallStarted>\n        <NamesArray xsi:type=\"ns2:ArrayOfString\">${arr(names)}</NamesArray>\n        <ValuesArray xsi:type=\"ns2:ArrayOfString\">${arr(values)}</ValuesArray>\n      </ns1:Telemarketing_Status_Set>\n    </soap:Body>\n  </soap:Envelope>`;\n  return { json: { ...j, lock_time: now, soapBody } };\n});"
+      },
+      "id": "f19a42e6-64ec-408f-ae13-b805e13c11da",
+      "name": "Build Lock Status SOAP",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        30464,
+        2720
+      ],
+      "notes": "v25: supports parallel-calls=N with per-item context preserved."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.business_api_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "text/xml"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "={{ $json.soapBody }}",
+        "options": {}
+      },
+      "id": "4ae79caf-a1b4-458f-b87a-2c8677515662",
+      "name": "Telemarketing_Status_Set Lock",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        28816,
+        2976
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const base = item.json;\n  const lock_response = base.lock_response ?? base.data ?? base.body ?? base;\n\n  const runStartedAt = String(\n    base.run_started_at ||\n    base.current_run_started_at ||\n    base.call_started_at ||\n    new Date().toISOString()\n  );\n\n  const dynamic_variables = {\n    run_started_at: runStartedAt,\n    current_run_started_at: runStartedAt,\n\n    BISAPI_URL: base.BISAPI_URL || base.business_api_url,\n    business_api_url: base.business_api_url,\n    business_entity_id: base.business_entity_id,\n    business_username: base.business_username,\n    business_password: base.business_password,\n\n    BusinessId: base.BusinessId,\n    campaignID: base.CampaignID,\n    CampaignID: base.CampaignID,\n    userID: base.userID,\n\n    EntityId: base.EntityId,\n    EntityID: base.EntityId,\n    TelOutgoingID: base.TelOutgoingID,\n\n    Mobile: base.Mobile,\n    Phone: base.Phone,\n    to_number: base.to_number,\n\n    FirstName: base.FirstName,\n    LastName: base.LastName,\n    Email: base.Email,\n\n    station_id: base.station_id,\n\n    status_map_storage_key: base.status_map_storage_key,\n    status_map_json: JSON.stringify(base.status_map || {}),\n\n    parallel_call_index: base.parallel_call_index,\n    parallel_calls_requested: base.parallel_calls_requested,\n    parallel_calls: base.parallel_calls || '1',\n\n    auto_continue_after_callback: String(\n      base.auto_continue_after_callback === true ||\n      String(base.auto_continue_after_callback).toLowerCase() === 'true'\n    ),\n\n    self_start_webhook_url:\n      base.self_start_webhook_url ||\n      'https://n8n.mekashron.com/webhook/telemarketing-elevenlabs-start',\n\n    crm_fetch_limit: base.crm_fetch_limit || base.limit_count || '100',\n\n    default_final_status_id: base.default_final_status_id,\n    failed_start_status_id: base.failed_start_status_id,\n    elevenlabs_api_key_for_crm: base.elevenlabs_api_key_for_crm,\n  };\n\n  if (base.previous_call_summary) {\n    dynamic_variables.previous_call_summary = base.previous_call_summary;\n  }\n\n  if (!base.agent_id || !base.agent_phone_number_id || !base.to_number) {\n    throw new Error(\n      `Cannot start ElevenLabs call: missing required field(s): agent_id=${base.agent_id || ''}, agent_phone_number_id=${base.agent_phone_number_id || ''}, to_number=${base.to_number || ''}`\n    );\n  }\n\n  return {\n    json: {\n      ...base,\n      run_started_at: runStartedAt,\n      current_run_started_at: runStartedAt,\n      lock_response,\n      crm_lock_skipped: false,\n      elevenlabs_payload: {\n        agent_id: base.agent_id,\n        agent_phone_number_id: base.agent_phone_number_id,\n        to_number: base.to_number,\n        conversation_initiation_client_data: {\n          dynamic_variables,\n        },\n      },\n    },\n  };\n});"
+      },
+      "id": "e5330813-bae2-4877-9392-f72f1c16ccad",
+      "name": "Prepare ElevenLabs Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        29248,
+        2976
+      ],
+      "notes": "v25: supports parallel-calls=N with per-item context preserved."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.elevenlabs.io/v1/convai/sip-trunk/outbound-call",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "xi-api-key",
+              "value": "sk_8a9f3f0242e7e0f8b9236909bd3a78a0689e5c0ea8cc8664"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.elevenlabs_payload) }}",
+        "options": {}
+      },
+      "id": "384bc67a-42a8-44ad-b956-1451f741f93a",
+      "name": "ElevenLabs Outbound Call",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        29440,
+        2976
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const staticData = $getWorkflowStaticData('global');\nstaticData.telemarketing = staticData.telemarketing || {};\nstaticData.telemarketing.activeCalls = staticData.telemarketing.activeCalls || {};\n\nreturn items.map((item, index) => {\n  const base = item.json;\n  const response = base.elevenlabs_start_response ?? base.body ?? base;\n  const conversation_id = response.conversation_id ?? response.conversationId ?? response.conversation?.id ?? response.id ?? '';\n  const sip_call_id = response.sip_call_id ?? response.sipCallId ?? response.call_id ?? '';\n  const attempt_id = `${base.status_map_storage_key || `${base.BusinessId}:${base.CampaignID}`}:${base.EntityId}:${Date.now()}_${index}`;\n  const run_started_at = String(base.run_started_at || base.current_run_started_at || base.call_started_at || new Date().toISOString());\n\n  const record = {\n    attempt_id,\n    run_started_at,\n    current_run_started_at: run_started_at,\n    BISAPI_URL: base.BISAPI_URL || base.business_api_url,\n    BusinessId: base.BusinessId,\n    CampaignID: base.CampaignID,\n    userID: base.userID,\n    station_id: base.station_id,\n    EntityId: base.EntityId,\n    TelOutgoingID: base.TelOutgoingID,\n    to_number: base.to_number,\n    agent_id: base.agent_id,\n    agent_phone_number_id: base.agent_phone_number_id,\n    conversation_id,\n    sip_call_id,\n    call_started_at: base.lock_time || base.call_started_at || new Date().toISOString(),\n    business_api_url: base.business_api_url,\n    business_entity_id: base.business_entity_id,\n    business_username: base.business_username,\n    business_password: base.business_password,\n    elevenlabs_api_key_for_crm: base.elevenlabs_api_key_for_crm,\n    status_map: base.status_map,\n    status_map_storage_key: base.status_map_storage_key,\n    stop_key: base.stop_key,\n    default_final_status_id: base.default_final_status_id,\n    failed_start_status_id: base.failed_start_status_id,\n    auto_continue_after_callback: base.auto_continue_after_callback === true || String(base.auto_continue_after_callback).toLowerCase() === 'true',\n    self_start_webhook_url: base.self_start_webhook_url || 'https://n8n.mekashron.com/webhook/telemarketing-elevenlabs-start',\n    crm_fetch_limit: base.crm_fetch_limit || base.limit_count || '100',\n    parallel_call_index: base.parallel_call_index,\n    parallel_calls_requested: base.parallel_calls_requested,\n    raw_elevenlabs_start_response: response,\n  };\n\n  if (conversation_id) staticData.telemarketing.activeCalls[conversation_id] = record;\n  if (sip_call_id) staticData.telemarketing.activeCalls[sip_call_id] = record;\n  staticData.telemarketing.activeCalls[attempt_id] = record;\n\n  return {\n    json: {\n      ...record,\n      elevenlabs_start_response: response,\n      success: response.success === true,\n      failed_before_call_started: response.success !== true,\n      failure_message: response.message || '',\n    }\n  };\n});"
+      },
+      "id": "18ded918-97d1-44f8-96b2-9f1537b0c189",
+      "name": "Store Active Call Mapping",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        29968,
+        2944
+      ],
+      "notes": "v25: supports parallel-calls=N with per-item context preserved."
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "telemarketing-elevenlabs-callback",
+        "options": {}
+      },
+      "id": "0ce33e04-9bc2-4c39-8868-6f194a3a6ff5",
+      "name": "ElevenLabs Callback Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        28864,
+        3312
+      ],
+      "webhookId": "fda00237-1d3c-45f8-90ee-9d2dd9a0b995"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $json.body ?? $json;\nconst data = body.data ?? body;\nconst metadata = data.metadata ?? {};\nconst phoneCall = metadata.phone_call ?? {};\n\nconst dyn =\n  data.conversation_initiation_client_data?.dynamic_variables ??\n  body.conversation_initiation_client_data?.dynamic_variables ??\n  {};\n\nfunction pick(...values) {\n  for (const v of values) {\n    if (v !== undefined && v !== null && String(v) !== '' && String(v) !== 'undefined') return v;\n  }\n  return undefined;\n}\n\nfunction boolParam(v, fallback = false) {\n  if (v === undefined || v === null || String(v) === '' || String(v) === 'undefined') return fallback;\n\n  const s = String(v).trim().toLowerCase();\n\n  if (['true', '1', 'yes', 'on'].includes(s)) return true;\n  if (['false', '0', 'no', 'off'].includes(s)) return false;\n\n  return Boolean(v);\n}\n\nfunction normalizeKey(v) {\n  return String(v ?? '')\n    .trim()\n    .toLowerCase()\n    .replace(/[\\s\\-]+/g, '_')\n    .replace(/[^a-z0-9_]/g, '');\n}\n\nfunction normalizeBisapiUrl(v) {\n  let url = String(v ?? '').trim();\n\n  if (!url || url === 'undefined') {\n    return 'http://lease4.mekashron.com:33330/soap/IBusinessAPI';\n  }\n\n  url = url.replace(/\\/+$/, '');\n\n  if (/\\/soap\\/IBusinessAPI$/i.test(url)) return url;\n\n  return `${url}/soap/IBusinessAPI`;\n}\n\nfunction makeScopeKey(bisapiUrl, businessId, campaignId) {\n  return `${normalizeBisapiUrl(bisapiUrl)}:${businessId}:${campaignId}`;\n}\n\nfunction parseJsonObject(v) {\n  if (!v) return {};\n\n  if (typeof v === 'object' && !Array.isArray(v)) return v;\n\n  if (typeof v === 'string') {\n    try {\n      const parsed = JSON.parse(v);\n      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) return parsed;\n    } catch (e) {}\n  }\n\n  return {};\n}\n\nfunction mergeStatusMaps(...maps) {\n  const out = {};\n\n  for (const m of maps) {\n    if (!m || typeof m !== 'object') continue;\n\n    for (const [k, v] of Object.entries(m)) {\n      const key = normalizeKey(k);\n      if (!key) continue;\n      if (v === undefined || v === null || String(v) === '' || String(v) === 'undefined') continue;\n      out[key] = String(v);\n    }\n  }\n\n  return out;\n}\n\nfunction isoFromUnixSeconds(v) {\n  if (v === undefined || v === null || String(v) === '') return '';\n\n  const n = Number(v);\n  if (!Number.isFinite(n)) return '';\n\n  return new Date(n * 1000).toISOString();\n}\n\nfunction deriveTranscript(data) {\n  const transcript = data.transcript;\n\n  if (Array.isArray(transcript)) {\n    return transcript\n      .map(t => {\n        const role = t.role || '';\n        const msg = t.message || t.text || '';\n        return msg ? `${role}: ${msg}` : '';\n      })\n      .filter(Boolean)\n      .join('\\n');\n  }\n\n  if (typeof transcript === 'string') return transcript;\n\n  return '';\n}\n\nfunction deriveSummary(data, transcript) {\n  return String(\n    pick(\n      data.analysis?.transcript_summary,\n      data.analysis?.summary,\n      data.summary,\n      transcript ? transcript.slice(0, 1200) : ''\n    )\n  );\n}\n\nfunction deriveStatusKey(rawStatus, callSuccessful, terminationReason, hasUserAudio) {\n  const raw = normalizeKey(rawStatus);\n  const successRaw = normalizeKey(callSuccessful);\n  const term = normalizeKey(terminationReason);\n\n  if (['not_interested', 'notinterested'].includes(raw)) return 'not_interested';\n  if (['confirm', 'confirmed'].includes(raw)) return 'confirm';\n  if (['call_back', 'callback', 'call_later', 'calllater'].includes(raw)) return 'call_back';\n\n  if (['no_answer', 'noanswer', 'not_answered', 'unanswered', 'timeout', 'timed_out'].includes(raw)) {\n    return 'no_answer';\n  }\n\n  if (['busy', '486'].includes(raw)) return 'busy';\n\n  if (['answering_machine', 'answeringmachine', 'voicemail', 'machine'].includes(raw)) {\n    return 'answering_machine';\n  }\n\n  if (['invalid_phone', 'invalidphone', 'invalid_number'].includes(raw)) return 'invalid_phone';\n  if (['fax'].includes(raw)) return 'fax';\n\n  if (['failed', 'fail', 'failure', 'error', 'sip_error'].includes(raw)) return 'failed';\n\n  if (['success', 'successful', 'true', 'answered', 'completed', 'complete'].includes(successRaw)) {\n    return 'answered';\n  }\n\n  if (callSuccessful === true) return 'answered';\n\n  if (['success', 'successful', 'answered', 'completed', 'complete'].includes(raw)) {\n    return 'answered';\n  }\n\n  if (raw === 'done' && (successRaw === 'success' || successRaw === 'true' || hasUserAudio)) {\n    return 'answered';\n  }\n\n  if (term.includes('busy')) return 'busy';\n  if (term.includes('no_answer') || term.includes('timeout')) return 'no_answer';\n  if (term.includes('voicemail') || term.includes('answering_machine')) return 'answering_machine';\n  if (term.includes('error') || term.includes('failed')) return 'failed';\n\n  return raw || 'answered';\n}\n\nconst conversation_id = String(\n  pick(\n    data.conversation_id,\n    body.conversation_id,\n    data.conversationId,\n    body.conversationId,\n    data.conversation?.id,\n    body.conversation?.id,\n    dyn.system__conversation_id,\n    ''\n  )\n);\n\nconst sip_call_id = String(\n  pick(\n    phoneCall.call_sid,\n    phoneCall.call_id,\n    data.sip_call_id,\n    body.sip_call_id,\n    dyn.system__call_sid,\n    ''\n  )\n);\n\nconst staticData = $getWorkflowStaticData('global');\n\nstaticData.telemarketing = staticData.telemarketing || {};\nstaticData.telemarketing.activeCalls = staticData.telemarketing.activeCalls || {};\nstaticData.telemarketing.lastSummaries = staticData.telemarketing.lastSummaries || {};\nstaticData.telemarketing.campaignStatusMaps = staticData.telemarketing.campaignStatusMaps || {};\nstaticData.telemarketing.currentRuns = staticData.telemarketing.currentRuns || {};\n\nlet attempt = null;\n\nif (conversation_id) {\n  attempt = staticData.telemarketing.activeCalls[conversation_id];\n}\n\nif (!attempt && sip_call_id) {\n  attempt = staticData.telemarketing.activeCalls[sip_call_id];\n}\n\nif (!attempt && data.attempt_id) {\n  attempt = staticData.telemarketing.activeCalls[data.attempt_id];\n}\n\nconst businessApiUrl = normalizeBisapiUrl(\n  pick(\n    attempt?.BISAPI_URL,\n    attempt?.business_api_url,\n    dyn.BISAPI_URL,\n    dyn.business_api_url,\n    dyn.BisapiUrl,\n    ''\n  )\n);\n\nconst businessId = String(pick(attempt?.BusinessId, dyn.BusinessId, dyn.businessId, 1));\nconst campaignId = String(pick(attempt?.CampaignID, dyn.CampaignID, dyn.campaignID, dyn.campaign_id, 12));\nconst scopeKey = makeScopeKey(businessApiUrl, businessId, campaignId);\nconst legacyScopeKey = `${businessId}:${campaignId}`;\n\nconst currentRun =\n  staticData.telemarketing.currentRuns?.[scopeKey] ||\n  staticData.telemarketing.currentRuns?.[legacyScopeKey] ||\n  {};\n\nconst runStartedAt = String(\n  pick(\n    attempt?.run_started_at,\n    attempt?.current_run_started_at,\n    dyn.run_started_at,\n    dyn.current_run_started_at,\n    currentRun.run_started_at,\n    ''\n  )\n);\n\nconst callbackStatusMap = parseJsonObject(dyn.status_map_json);\nconst storedStatusMap =\n  staticData.telemarketing.campaignStatusMaps?.[scopeKey]?.status_map ||\n  staticData.telemarketing.campaignStatusMaps?.[legacyScopeKey]?.status_map ||\n  {};\n\nconst statusMap = mergeStatusMaps(\n  {\n    no_answer: '1',\n    busy: '2',\n    invalid_phone: '3',\n    fax: '4',\n    answering_machine: '5',\n  },\n  storedStatusMap,\n  callbackStatusMap\n);\n\nif (!attempt) {\n  attempt = {\n    attempt_rebuilt_from_callback: true,\n\n    run_started_at: runStartedAt,\n    current_run_started_at: runStartedAt,\n\n    BISAPI_URL: businessApiUrl,\n    business_api_url: businessApiUrl,\n\n    BusinessId: businessId,\n    CampaignID: campaignId,\n\n    userID: String(pick(dyn.userID, dyn.userId, 1)),\n\n    business_entity_id: String(pick(dyn.business_entity_id, dyn.ol_EntityID, '27827')),\n    business_username: String(pick(dyn.business_username, dyn.ol_Username, '442033973506')),\n    business_password: String(pick(dyn.business_password, dyn.ol_Password, '123456')),\n\n    station_id: String(pick(dyn.station_id, dyn.StationID, '1000')),\n\n    EntityId: String(pick(dyn.EntityId, dyn.EntityID, dyn.entity_id, '')),\n    TelOutgoingID: String(pick(dyn.TelOutgoingID, dyn.telOutgoingID, '')),\n\n    Mobile: String(pick(dyn.Mobile, '')),\n    Phone: String(pick(dyn.Phone, '')),\n    to_number: String(pick(dyn.to_number, dyn.Mobile, dyn.Phone, dyn.system__called_number, '')),\n\n    FirstName: String(pick(dyn.FirstName, '')),\n    LastName: String(pick(dyn.LastName, '')),\n    Email: String(pick(dyn.Email, '')),\n\n    status_map: statusMap,\n    status_map_storage_key: String(pick(dyn.status_map_storage_key, scopeKey)),\n\n    default_final_status_id: String(\n      pick(\n        dyn.default_final_status_id,\n        statusMap.answered,\n        statusMap.success,\n        statusMap.completed,\n        '10'\n      )\n    ),\n\n    failed_start_status_id: String(\n      pick(\n        dyn.failed_start_status_id,\n        statusMap.failed_start,\n        statusMap.failed,\n        '10'\n      )\n    ),\n\n    auto_continue_after_callback: boolParam(dyn.auto_continue_after_callback, false),\n\n    self_start_webhook_url: String(\n      pick(\n        dyn.self_start_webhook_url,\n        'https://n8n.mekashron.com/webhook/telemarketing-elevenlabs-start'\n      )\n    ),\n\n    crm_fetch_limit: String(pick(dyn.crm_fetch_limit, '100')),\n    parallel_calls: String(pick(dyn.parallel_calls, '1')),\n    parallel_call_index: dyn.parallel_call_index,\n    parallel_calls_requested: dyn.parallel_calls_requested,\n\n    elevenlabs_api_key_for_crm: String(pick(dyn.elevenlabs_api_key_for_crm, '')),\n\n    agent_id: String(pick(data.agent_id, dyn.system__agent_id, '')),\n    conversation_id,\n    sip_call_id,\n  };\n} else {\n  attempt.run_started_at = String(pick(attempt.run_started_at, dyn.run_started_at, runStartedAt));\n  attempt.current_run_started_at = String(pick(attempt.current_run_started_at, dyn.current_run_started_at, runStartedAt));\n\n  attempt.status_map = mergeStatusMaps(statusMap, attempt.status_map || {});\n  attempt.status_map_storage_key = attempt.status_map_storage_key || scopeKey;\n\n  attempt.auto_continue_after_callback =\n    attempt.auto_continue_after_callback === true ||\n    boolParam(dyn.auto_continue_after_callback, false);\n\n  attempt.self_start_webhook_url =\n    attempt.self_start_webhook_url ||\n    String(pick(dyn.self_start_webhook_url, 'https://n8n.mekashron.com/webhook/telemarketing-elevenlabs-start'));\n\n  attempt.crm_fetch_limit = attempt.crm_fetch_limit || String(pick(dyn.crm_fetch_limit, '100'));\n}\n\nconst transcript = deriveTranscript(data);\nconst summary = deriveSummary(data, transcript);\n\nconst rawStatus = pick(\n  data.analysis?.data_collection_results?.status?.value,\n  data.analysis?.data_collection_results?.call_status?.value,\n  data.analysis?.call_status,\n  data.call_status,\n  data.status,\n  body.status,\n  ''\n);\n\nconst callSuccessful = pick(\n  data.analysis?.call_successful,\n  data.call_successful,\n  data.success,\n  ''\n);\n\nconst terminationReason = pick(\n  metadata.termination_reason,\n  data.termination_reason,\n  ''\n);\n\nconst hasUserAudio = data.has_user_audio === true;\n\nconst statusKey = deriveStatusKey(\n  rawStatus,\n  callSuccessful,\n  terminationReason,\n  hasUserAudio\n);\n\nconst explicitFinalStatusProvided = Boolean(\n  pick(\n    dyn.final_status_id,\n    dyn.finalStatusId,\n    data.final_status_id,\n    body.final_status_id\n  )\n);\n\nconst finalStatusFromPayload = pick(\n  dyn.final_status_id,\n  dyn.finalStatusId,\n  data.final_status_id,\n  body.final_status_id\n);\n\nconst finalStatusFromMap = pick(\n  statusMap[statusKey],\n  statusMap[normalizeKey(rawStatus)],\n  statusKey === 'answered' ? statusMap.success : undefined,\n  statusKey === 'answered' ? statusMap.completed : undefined\n);\n\nconst statusMapFinalProvided = Boolean(finalStatusFromMap);\n\nconst finalStatusId = String(\n  pick(\n    finalStatusFromPayload,\n    finalStatusFromMap,\n    attempt.default_final_status_id,\n    statusMap.answered,\n    statusMap.success,\n    statusMap.completed,\n    '10'\n  )\n);\n\nconst callStartedAt = String(\n  pick(\n    attempt.call_started_at,\n    isoFromUnixSeconds(metadata.start_time_unix_secs),\n    isoFromUnixSeconds(metadata.accepted_time_unix_secs),\n    ''\n  )\n);\n\nconst callEndedAt = new Date().toISOString();\n\nconst summaryKey = `${attempt.status_map_storage_key || scopeKey}:${attempt.EntityId}`;\nconst legacySummaryKey = `${attempt.BusinessId}:${attempt.CampaignID}:${attempt.EntityId}`;\n\nif (summary) {\n  staticData.telemarketing.lastSummaries[summaryKey] = {\n    summary,\n    updated_at: callEndedAt,\n  };\n\n  staticData.telemarketing.lastSummaries[legacySummaryKey] = {\n    summary,\n    updated_at: callEndedAt,\n  };\n}\n\nattempt.raw_callback = body;\nattempt.summary = summary || attempt.summary || '';\nattempt.transcript = transcript || attempt.transcript || '';\n\nattempt.normalized_status = normalizeKey(rawStatus);\nattempt.status_key = statusKey;\nattempt.final_status_id = finalStatusId;\n\nattempt.call_answered = Boolean(\n  statusKey === 'answered' ||\n  callSuccessful === true ||\n  normalizeKey(callSuccessful) === 'success' ||\n  hasUserAudio\n);\n\nattempt.conversation_id = conversation_id || attempt.conversation_id || '';\nattempt.sip_call_id = sip_call_id || attempt.sip_call_id || '';\n\nattempt.call_started_at = callStartedAt || attempt.call_started_at || '';\nattempt.call_ended_at = callEndedAt;\n\nattempt.call_duration_secs = metadata.call_duration_secs ?? dyn.system__call_duration_secs ?? '';\nattempt.termination_reason = metadata.termination_reason ?? '';\n\nattempt.final_status_fallback_used = !(explicitFinalStatusProvided || statusMapFinalProvided);\n\nattempt.run_started_at = String(pick(attempt.run_started_at, runStartedAt, ''));\nattempt.current_run_started_at = String(pick(attempt.current_run_started_at, runStartedAt, attempt.run_started_at, ''));\n\nif (attempt.conversation_id) {\n  staticData.telemarketing.activeCalls[attempt.conversation_id] = attempt;\n}\n\nif (attempt.sip_call_id) {\n  staticData.telemarketing.activeCalls[attempt.sip_call_id] = attempt;\n}\n\nreturn [{\n  json: {\n    ...attempt,\n    run_started_at: attempt.run_started_at,\n    current_run_started_at: attempt.current_run_started_at,\n    can_set_final_status: true,\n    final_status_fallback_used: attempt.final_status_fallback_used,\n    raw_callback: body,\n  }\n}];"
+      },
+      "id": "5ba76e92-006c-49d0-8647-f8510885fd12",
+      "name": "Resolve Callback + Final Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        29104,
+        3312
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nif (!$json.can_set_final_status) {\n  return [];\n}\nreturn items;\n"
+      },
+      "id": "a0246990-e6e2-44fc-9ed0-6bf619b0cabc",
+      "name": "Gate: Final Status Is Known",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        29312,
+        3312
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nfunction esc(v) {\n  return String(v ?? '')\n    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;').replace(/'/g, '&apos;');\n}\nfunction arr(items) { return items.map(v => `<item xsi:type=\"xsd:string\">${esc(v)}</item>`).join('\\n'); }\nfunction dt(d = new Date()) {\n  const pad = n => String(n).padStart(2, '0');\n  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;\n}\nconst endedAt = dt();\nconst started = $json.call_started_at ? String($json.call_started_at).replace('T', ' ').replace(/\\.\\d+Z$/, '') : endedAt;\nconst names = ['CallEnded', 'conversationId', 'api_key', 'StationID', 'UserId'];\nconst values = [endedAt, $json.conversation_id || '', $json.elevenlabs_api_key_for_crm || '', '0', $json.userID || '1'];\nconst soapBody = `<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"\n  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n  xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n  xmlns:ns1=\"urn:BusinessApiIntf-IBusinessAPI\"\n  xmlns:ns2=\"urn:CommonWSTypes\">\n  <soap:Body>\n    <ns1:Telemarketing_Status_Set soap:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n      <ol_EntityID xsi:type=\"xsd:int\">${esc($json.business_entity_id)}</ol_EntityID>\n      <ol_Username xsi:type=\"xsd:string\">${esc($json.business_username)}</ol_Username>\n      <ol_Password xsi:type=\"xsd:string\">${esc($json.business_password)}</ol_Password>\n      <campaignID xsi:type=\"xsd:int\">${esc($json.CampaignID)}</campaignID>\n      <EntityId xsi:type=\"xsd:int\">${esc($json.EntityId)}</EntityId>\n      <StatusId xsi:type=\"xsd:int\">${esc($json.final_status_id)}</StatusId>\n      <CallStarted xsi:type=\"xsd:string\">${esc(started)}</CallStarted>\n      <NamesArray xsi:type=\"ns2:ArrayOfString\">${arr(names)}</NamesArray>\n      <ValuesArray xsi:type=\"ns2:ArrayOfString\">${arr(values)}</ValuesArray>\n    </ns1:Telemarketing_Status_Set>\n  </soap:Body>\n</soap:Envelope>`;\nreturn [{ json: { ...$json, call_ended_at: endedAt, soapBody } }];\n"
+      },
+      "id": "ca84b7f5-2705-4ed9-be58-606efbd3f6a2",
+      "name": "Build Final Status SOAP",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        29536,
+        3312
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.business_api_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "text/xml"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "={{ $json.soapBody }}",
+        "options": {}
+      },
+      "id": "470e169c-f3a4-490e-9cbd-f9ed005630b7",
+      "name": "Telemarketing_Status_Set Final",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        29776,
+        3312
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const base = $items('Build Final Status SOAP')[0].json;\nconst crmFinalResponse = $json.data ?? $json.body ?? $json;\nconst crmFinalText = typeof crmFinalResponse === 'string' ? crmFinalResponse : JSON.stringify(crmFinalResponse);\n\nfunction unesc(s) {\n  return String(s)\n    .replace(/&lt;/g, '<')\n    .replace(/&gt;/g, '>')\n    .replace(/&amp;/g, '&')\n    .replace(/&quot;/g, '\"')\n    .replace(/&apos;/g, \"'\")\n    .trim();\n}\n\nfunction extractResultCode(text) {\n  const m = text.match(/<return[^>]*>([\\s\\S]*?)<\\/return>/);\n  const returnText = m ? unesc(m[1]) : text;\n  const resultCodeMatch = returnText.match(/\"?ResultCode\"?\\s*[:=]\\s*(-?\\d+)/i);\n  return resultCodeMatch ? Number(resultCodeMatch[1]) : null;\n}\n\nfunction toMs(v) {\n  const ms = Date.parse(String(v ?? ''));\n  return Number.isFinite(ms) ? ms : null;\n}\n\nfunction normalizeStopRecord(raw) {\n  if (raw === true) {\n    return {\n      active: true,\n      updated_at: '1970-01-01T00:00:00.000Z',\n      legacy_boolean: true,\n    };\n  }\n\n  if (raw === false || raw === undefined || raw === null) {\n    return {\n      active: false,\n      updated_at: '',\n      legacy_boolean: raw === false,\n    };\n  }\n\n  if (typeof raw === 'object') {\n    return {\n      active: raw.active === true,\n      updated_at: String(raw.updated_at || raw.stopped_at || ''),\n      run_started_at: String(raw.run_started_at || ''),\n      source_command: String(raw.source_command || ''),\n      raw,\n    };\n  }\n\n  return {\n    active: false,\n    updated_at: '',\n    raw,\n  };\n}\n\nfunction isStopActiveForRun(rawStop, runStartedAt) {\n  const stop = normalizeStopRecord(rawStop);\n  if (!stop.active) {\n    return { active: false, stale: false, stop };\n  }\n\n  const stopMs = toMs(stop.updated_at);\n  const runMs = toMs(runStartedAt);\n\n  if (runMs === null) {\n    return { active: true, stale: false, stop, reason: 'no_run_started_at' };\n  }\n\n  if (stop.legacy_boolean === true) {\n    return { active: false, stale: true, stop, reason: 'legacy_boolean_stop_is_stale' };\n  }\n\n  if (stopMs === null) {\n    return { active: true, stale: false, stop, reason: 'stop_has_no_valid_updated_at' };\n  }\n\n  if (stopMs >= runMs) {\n    return { active: true, stale: false, stop, reason: 'stop_after_or_equal_run_start' };\n  }\n\n  return { active: false, stale: true, stop, reason: 'stop_before_run_start' };\n}\n\nfunction getStopCheck(stopFlags, key, legacyKey, runStartedAt) {\n  const primary = isStopActiveForRun(stopFlags[key], runStartedAt);\n  const legacy = isStopActiveForRun(stopFlags[legacyKey], runStartedAt);\n  const active = primary.active || legacy.active;\n\n  return {\n    active,\n    stop_flag: active,\n    should_continue: !active,\n    primary,\n    legacy,\n    stop_updated_at: primary.stop.updated_at || legacy.stop.updated_at || '',\n    stale_stop_ignored: Boolean(primary.stale || legacy.stale),\n  };\n}\n\nconst staticData = $getWorkflowStaticData('global');\nstaticData.telemarketing = staticData.telemarketing || {};\nstaticData.telemarketing.stopFlags = staticData.telemarketing.stopFlags || {};\nstaticData.telemarketing.activeCalls = staticData.telemarketing.activeCalls || {};\nstaticData.telemarketing.completedOutgoing = staticData.telemarketing.completedOutgoing || {};\n\nconst stopKey = base.stop_key || base.status_map_storage_key || `${base.BISAPI_URL || base.business_api_url}:${base.BusinessId}:${base.CampaignID}`;\nconst legacyStopKey = `${base.BusinessId}:${base.CampaignID}`;\nconst runStartedAt = String(base.run_started_at || base.current_run_started_at || '');\nconst stopCheck = getStopCheck(staticData.telemarketing.stopFlags, stopKey, legacyStopKey, runStartedAt);\nconst stopFlag = stopCheck.stop_flag;\n\nconst resultCode = extractResultCode(crmFinalText);\nconst finalUpdateOk = resultCode === 0;\n\nif (base.conversation_id && staticData.telemarketing.activeCalls[base.conversation_id]) {\n  staticData.telemarketing.activeCalls[base.conversation_id].finished_at = base.call_ended_at;\n  staticData.telemarketing.activeCalls[base.conversation_id].final_status_id = base.final_status_id;\n}\n\nif (finalUpdateOk && base.TelOutgoingID) {\n  const completedKey = `${base.status_map_storage_key || stopKey}:${base.TelOutgoingID}`;\n  const legacyCompletedKey = `${base.BusinessId}:${base.CampaignID}:${base.TelOutgoingID}`;\n  const record = {\n    BISAPI_URL: base.BISAPI_URL || base.business_api_url,\n    BusinessId: base.BusinessId,\n    CampaignID: base.CampaignID,\n    EntityId: base.EntityId,\n    TelOutgoingID: base.TelOutgoingID,\n    to_number: base.to_number,\n    final_status_id: base.final_status_id,\n    conversation_id: base.conversation_id || '',\n    run_started_at: runStartedAt,\n    completed_at: base.call_ended_at || new Date().toISOString(),\n  };\n  staticData.telemarketing.completedOutgoing[completedKey] = record;\n  staticData.telemarketing.completedOutgoing[legacyCompletedKey] = record;\n}\n\nconst shouldTriggerNext = Boolean(base.auto_continue_after_callback && !stopFlag && base.self_start_webhook_url);\n\nreturn [{\n  json: {\n    ...base,\n    run_started_at: runStartedAt,\n    current_run_started_at: runStartedAt,\n    crm_final_response: crmFinalResponse,\n    crm_final_result_code: resultCode,\n    marked_completed_in_workflow: Boolean(finalUpdateOk && base.TelOutgoingID),\n    stop_flag_after_callback: stopFlag,\n    stop_updated_at_after_callback: stopCheck.stop_updated_at,\n    stale_stop_ignored_after_callback: stopCheck.stale_stop_ignored,\n    stop_check_after_callback: stopCheck,\n    should_trigger_next: shouldTriggerNext,\n    self_start_webhook_url: base.self_start_webhook_url || '',\n  }\n}];"
+      },
+      "id": "78c7e26d-136b-4a55-87e1-e1afd027029a",
+      "name": "Check Stop Flag After Callback",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        30000,
+        3312
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nif (!$json.should_trigger_next) {\n  return [];\n}\nreturn items;\n"
+      },
+      "id": "785ac2ee-0269-44e9-ab90-19c444430fc0",
+      "name": "Gate: Continue Next Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        30224,
+        3312
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.self_start_webhook_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  command: 'continue',\n  internal_auto_continue: true,\n  run_started_at: $json.run_started_at || $json.current_run_started_at || $json.call_started_at || new Date().toISOString(),\n  BISAPI_URL: $json.BISAPI_URL || $json.business_api_url,\n  ol_EntityID: $json.business_entity_id,\n  ol_Username: $json.business_username,\n  ol_Password: $json.business_password,\n  BusinessId: $json.BusinessId,\n  CampaignID: $json.CampaignID,\n  userID: $json.userID,\n  station_id: $json.station_id,\n  agent_id: $json.agent_id,\n  agent_phone_number_id: $json.agent_phone_number_id,\n\n  parallel_calls: Number($json.parallel_calls_requested || $json.parallel_calls || 1),\n  limit_count: Number($json.parallel_calls_requested || $json.parallel_calls || 1),\n  crm_fetch_limit: $json.crm_fetch_limit || 100,\n\n  auto_continue_after_callback: $json.auto_continue_after_callback,\n  self_start_webhook_url: $json.self_start_webhook_url,\n  default_final_status_id: $json.default_final_status_id,\n  failed_start_status_id: $json.failed_start_status_id,\n  elevenlabs_api_key_for_crm: $json.elevenlabs_api_key_for_crm,\n  status_map: $json.status_map || {}\n}) }}",
+        "options": {}
+      },
+      "id": "f38e224b-1054-42fc-b3dc-3291ba429e94",
+      "name": "Trigger Next Start Webhook",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        30432,
+        3312
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const lockItems = $items('Build Lock Status SOAP');\n\nfunction unesc(s) {\n  return String(s)\n    .replace(/&lt;/g, '<')\n    .replace(/&gt;/g, '>')\n    .replace(/&amp;/g, '&')\n    .replace(/&quot;/g, '\"')\n    .replace(/&apos;/g, \"'\")\n    .trim();\n}\n\nreturn items.map((item, index) => {\n  const base = (lockItems[index] || lockItems[0] || { json: {} }).json;\n  const raw = item.json.data ?? item.json.body ?? item.json;\n  const rawText = typeof raw === 'string' ? raw : JSON.stringify(raw);\n\n  const m = rawText.match(/<return[^>]*>([\\s\\S]*?)<\\/return>/);\n  const returnText = m ? unesc(m[1]) : rawText;\n\n  let parsed = null;\n  try {\n    if (returnText && /^[\\[{]/.test(returnText.trim())) {\n      parsed = JSON.parse(returnText);\n    }\n  } catch (e) {\n    parsed = null;\n  }\n\n  const textForCheck = returnText || rawText;\n  const resultCodeMatch = textForCheck.match(/\"?ResultCode\"?\\s*[:=]\\s*(-?\\d+)/i);\n  const resultCode = resultCodeMatch ? Number(resultCodeMatch[1]) : null;\n  const obviousTemporaryMekashronError = /Socket Error Code:\\s*10048|Only one usage of each socket address|Cannot connect to server on host '127\\.0\\.0\\.1'/i.test(textForCheck);\n  const obviousApiError = /open query exception|exception|error/i.test(textForCheck) && !/ResultCode\"?\\s*[:=]\\s*0/i.test(textForCheck);\n  const n8nHttpError = Boolean(item.json.error || item.json.message?.includes?.('ERROR') || item.json.statusCode >= 400);\n\n  if (n8nHttpError || obviousTemporaryMekashronError || (resultCode !== null && resultCode < 0) || obviousApiError) {\n    throw new Error(`CRM lock failed. Do not start ElevenLabs call. EntityId=${base.EntityId || ''}, TelOutgoingID=${base.TelOutgoingID || ''}. Response: ${textForCheck.slice(0, 1200)}`);\n  }\n\n  return {\n    json: {\n      ...base,\n      lock_response: raw,\n      crm_lock_validated: true,\n      crm_lock_result_code: resultCode,\n      crm_lock_return: returnText,\n    }\n  };\n});"
+      },
+      "id": "3059427b-5e72-4c99-994b-a893c7405732",
+      "name": "Validate Lock Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        29024,
+        2976
+      ],
+      "notes": "v25: supports parallel-calls=N with per-item context preserved."
+    },
+    {
+      "parameters": {
+        "jsCode": "const baseItems = $items('Prepare ElevenLabs Payload');\nconst out = [];\n\nitems.forEach((item, index) => {\n  const base = (baseItems[index] || baseItems[0] || { json: {} }).json;\n  const response = item.json.body ?? item.json;\n  if (response.success === true) {\n    out.push({\n      json: {\n        ...base,\n        elevenlabs_start_response: response,\n        success: true,\n        failed_before_call_started: false,\n        failure_message: '',\n      }\n    });\n  }\n});\n\nreturn out;"
+      },
+      "id": "4715386f-33ed-42f6-8c21-a49adf347b1c",
+      "name": "Gate: ElevenLabs Success",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        29792,
+        2944
+      ],
+      "notes": "v25: supports parallel-calls=N with per-item context preserved."
+    },
+    {
+      "parameters": {
+        "jsCode": "const baseItems = $items('Prepare ElevenLabs Payload');\nconst out = [];\n\nitems.forEach((item, index) => {\n  const base = (baseItems[index] || baseItems[0] || { json: {} }).json;\n  const response = item.json.body ?? item.json;\n  if (response.success === true) return;\n\n  out.push({\n    json: {\n      ...base,\n      elevenlabs_start_response: response,\n      failed_before_call_started: true,\n      failure_message: response.message || response.error?.message || response.error || 'ElevenLabs outbound call did not start',\n    }\n  });\n});\n\nreturn out;"
+      },
+      "id": "804b6c01-fc07-4a59-af18-eb7ef9c40c38",
+      "name": "Gate: ElevenLabs Failed",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        29792,
+        3120
+      ],
+      "notes": "v25: supports parallel-calls=N with per-item context preserved."
+    },
+    {
+      "parameters": {
+        "jsCode": "function esc(v) {\n  return String(v ?? '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;')\n    .replace(/'/g, '&apos;');\n}\nfunction arr(items) {\n  return items.map(v => `<item xsi:type=\"xsd:string\">${esc(v)}</item>`).join('\\n');\n}\nfunction dt(d = new Date()) {\n  const pad = n => String(n).padStart(2, '0');\n  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;\n}\nfunction pick(...values) {\n  for (const v of values) {\n    if (v !== undefined && v !== null && String(v) !== '' && String(v) !== 'undefined') return v;\n  }\n  return undefined;\n}\nfunction deriveFailedStartStatusKey(text) {\n  const t = String(text ?? '').toLowerCase();\n  if (t.includes('busy') || t.includes('486')) return 'busy';\n  if (t.includes('no answer') || t.includes('no_answer') || t.includes('timeout') || t.includes('timed out')) return 'no_answer';\n  if (t.includes('answering machine') || t.includes('voicemail')) return 'answering_machine';\n  if (t.includes('invalid') || t.includes('bad number')) return 'invalid_phone';\n  return 'failed';\n}\n\nreturn items.map(item => {\n  const base = item.json;\n  const response = base.elevenlabs_start_response ?? base.body ?? base;\n  const endedAt = dt();\n  const started = base.lock_time || base.call_started_at || endedAt;\n  const responseText = response.message || response.error?.message || response.error || 'ElevenLabs outbound call did not start';\n  const statusMap = base.status_map || {};\n  const status_key = deriveFailedStartStatusKey(responseText);\n  const statusId = String(pick(\n    statusMap[status_key],\n    status_key === 'failed' ? statusMap.failed_start : undefined,\n    base.failed_start_status_id,\n    base.default_final_status_id,\n    '0'\n  ));\n\n  // Keep CRM update minimal here. Some debug fields such as sipCallId/failureMessage\n  // are not real CRM columns and can break Telemarketing_Status_Set.\n  const names = [\n    'CallEnded',\n    'StationID',\n    'UserId'\n  ];\n\n  const values = [\n    endedAt,\n    '0',\n    base.userID || '1'\n  ];\n\n  const soapBody = `<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"\n    xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n    xmlns:ns1=\"urn:BusinessApiIntf-IBusinessAPI\"\n    xmlns:ns2=\"urn:CommonWSTypes\">\n    <soap:Body>\n      <ns1:Telemarketing_Status_Set soap:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n        <ol_EntityID xsi:type=\"xsd:int\">${esc(base.business_entity_id)}</ol_EntityID>\n        <ol_Username xsi:type=\"xsd:string\">${esc(base.business_username)}</ol_Username>\n        <ol_Password xsi:type=\"xsd:string\">${esc(base.business_password)}</ol_Password>\n        <campaignID xsi:type=\"xsd:int\">${esc(base.CampaignID)}</campaignID>\n        <EntityId xsi:type=\"xsd:int\">${esc(base.EntityId)}</EntityId>\n        <StatusId xsi:type=\"xsd:int\">${esc(statusId)}</StatusId>\n        <CallStarted xsi:type=\"xsd:string\">${esc(String(started).replace('T', ' ').replace(/\\.\\d+Z$/, ''))}</CallStarted>\n        <NamesArray xsi:type=\"ns2:ArrayOfString\">${arr(names)}</NamesArray>\n        <ValuesArray xsi:type=\"ns2:ArrayOfString\">${arr(values)}</ValuesArray>\n      </ns1:Telemarketing_Status_Set>\n    </soap:Body>\n  </soap:Envelope>`;\n\n  return {\n    json: {\n      ...base,\n      failed_before_call_started: true,\n      failure_message: responseText,\n      elevenlabs_start_response: response,\n      status_key,\n      final_status_id: statusId,\n      call_answered: '0',\n      call_ended_at: endedAt,\n      unlock_reason: 'elevenlabs_outbound_failed_before_call_started',\n      soapBody,\n    }\n  };\n});"
+      },
+      "id": "f2cebe5b-8cb1-4380-af35-fcd36e1fccc9",
+      "name": "Build Failed Start Unlock SOAP",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        30000,
+        3120
+      ],
+      "notes": "v25: supports parallel-calls=N with per-item context preserved."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.business_api_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "text/xml"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "={{ $json.soapBody }}",
+        "options": {}
+      },
+      "id": "ec856c3a-247a-4bae-8dff-5de160c6e063",
+      "name": "Telemarketing_Status_Set Failed Start Unlock",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        30224,
+        3120
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const base = $items('Build Failed Start Unlock SOAP')[0].json;\nconst crmFailedStartResponse = $json.data ?? $json.body ?? $json;\nconst crmFailedStartText = typeof crmFailedStartResponse === 'string'\n  ? crmFailedStartResponse\n  : JSON.stringify(crmFailedStartResponse);\n\nfunction unesc(s) {\n  return String(s)\n    .replace(/&lt;/g, '<')\n    .replace(/&gt;/g, '>')\n    .replace(/&amp;/g, '&')\n    .replace(/&quot;/g, '\"')\n    .replace(/&apos;/g, \"'\")\n    .trim();\n}\n\nfunction extractResultCode(text) {\n  const m = text.match(/<return[^>]*>([\\s\\S]*?)<\\/return>/);\n  const returnText = m ? unesc(m[1]) : text;\n  const resultCodeMatch = returnText.match(/\"?ResultCode\"?\\s*[:=]\\s*(-?\\d+)/i);\n  return resultCodeMatch ? Number(resultCodeMatch[1]) : null;\n}\n\nfunction toMs(v) {\n  const ms = Date.parse(String(v ?? ''));\n  return Number.isFinite(ms) ? ms : null;\n}\n\nfunction normalizeStopRecord(raw) {\n  if (raw === true) {\n    return {\n      active: true,\n      updated_at: '1970-01-01T00:00:00.000Z',\n      legacy_boolean: true,\n    };\n  }\n\n  if (raw === false || raw === undefined || raw === null) {\n    return {\n      active: false,\n      updated_at: '',\n      legacy_boolean: raw === false,\n    };\n  }\n\n  if (typeof raw === 'object') {\n    return {\n      active: raw.active === true,\n      updated_at: String(raw.updated_at || raw.stopped_at || ''),\n      run_started_at: String(raw.run_started_at || ''),\n      source_command: String(raw.source_command || ''),\n      raw,\n    };\n  }\n\n  return {\n    active: false,\n    updated_at: '',\n    raw,\n  };\n}\n\nfunction isStopActiveForRun(rawStop, runStartedAt) {\n  const stop = normalizeStopRecord(rawStop);\n  if (!stop.active) {\n    return { active: false, stale: false, stop };\n  }\n\n  const stopMs = toMs(stop.updated_at);\n  const runMs = toMs(runStartedAt);\n\n  if (runMs === null) {\n    return { active: true, stale: false, stop, reason: 'no_run_started_at' };\n  }\n\n  if (stop.legacy_boolean === true) {\n    return { active: false, stale: true, stop, reason: 'legacy_boolean_stop_is_stale' };\n  }\n\n  if (stopMs === null) {\n    return { active: true, stale: false, stop, reason: 'stop_has_no_valid_updated_at' };\n  }\n\n  if (stopMs >= runMs) {\n    return { active: true, stale: false, stop, reason: 'stop_after_or_equal_run_start' };\n  }\n\n  return { active: false, stale: true, stop, reason: 'stop_before_run_start' };\n}\n\nfunction getStopCheck(stopFlags, key, legacyKey, runStartedAt) {\n  const primary = isStopActiveForRun(stopFlags[key], runStartedAt);\n  const legacy = isStopActiveForRun(stopFlags[legacyKey], runStartedAt);\n  const active = primary.active || legacy.active;\n\n  return {\n    active,\n    stop_flag: active,\n    should_continue: !active,\n    primary,\n    legacy,\n    stop_updated_at: primary.stop.updated_at || legacy.stop.updated_at || '',\n    stale_stop_ignored: Boolean(primary.stale || legacy.stale),\n  };\n}\n\nconst staticData = $getWorkflowStaticData('global');\nstaticData.telemarketing = staticData.telemarketing || {};\nstaticData.telemarketing.stopFlags = staticData.telemarketing.stopFlags || {};\nstaticData.telemarketing.completedOutgoing = staticData.telemarketing.completedOutgoing || {};\n\nconst stopKey = base.stop_key || base.status_map_storage_key || `${base.BISAPI_URL || base.business_api_url}:${base.BusinessId}:${base.CampaignID}`;\nconst legacyStopKey = `${base.BusinessId}:${base.CampaignID}`;\nconst runStartedAt = String(base.run_started_at || base.current_run_started_at || '');\nconst stopCheck = getStopCheck(staticData.telemarketing.stopFlags, stopKey, legacyStopKey, runStartedAt);\nconst stopFlag = stopCheck.stop_flag;\n\nconst resultCode = extractResultCode(crmFailedStartText);\nconst failedStartUpdateOk = resultCode === 0;\n\nif (failedStartUpdateOk && base.TelOutgoingID) {\n  const completedKey = `${base.status_map_storage_key || stopKey}:${base.TelOutgoingID}`;\n  const legacyCompletedKey = `${base.BusinessId}:${base.CampaignID}:${base.TelOutgoingID}`;\n\n  const record = {\n    BISAPI_URL: base.BISAPI_URL || base.business_api_url,\n    BusinessId: base.BusinessId,\n    CampaignID: base.CampaignID,\n    EntityId: base.EntityId,\n    TelOutgoingID: base.TelOutgoingID,\n    to_number: base.to_number,\n    final_status_id: base.final_status_id,\n    failed_before_call_started: true,\n    failure_message: base.failure_message || '',\n    run_started_at: runStartedAt,\n    completed_at: base.call_ended_at || new Date().toISOString(),\n  };\n\n  staticData.telemarketing.completedOutgoing[completedKey] = record;\n  staticData.telemarketing.completedOutgoing[legacyCompletedKey] = record;\n}\n\nconst shouldTriggerNext = Boolean(\n  base.auto_continue_after_callback &&\n  !stopFlag &&\n  base.self_start_webhook_url\n);\n\nreturn [{\n  json: {\n    ...base,\n    run_started_at: runStartedAt,\n    current_run_started_at: runStartedAt,\n    crm_failed_start_response: crmFailedStartResponse,\n    crm_failed_start_result_code: resultCode,\n    marked_completed_in_workflow: Boolean(failedStartUpdateOk && base.TelOutgoingID),\n    stop_flag_after_failed_start: stopFlag,\n    stop_updated_at_after_failed_start: stopCheck.stop_updated_at,\n    stale_stop_ignored_after_failed_start: stopCheck.stale_stop_ignored,\n    stop_check_after_failed_start: stopCheck,\n    should_trigger_next: shouldTriggerNext,\n    self_start_webhook_url: base.self_start_webhook_url || '',\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        30448,
+        3120
+      ],
+      "id": "0b26c601-e744-4469-bb62-63e1b0071352",
+      "name": "Check Stop Flag After Failed Start"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Manual Test Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Manual Test Input": {
+      "main": [
+        [
+          {
+            "node": "Normalize Start Input + Stop Flag",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Or Stop Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize Start Input + Stop Flag",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Start Input + Stop Flag": {
+      "main": [
+        [
+          {
+            "node": "Gate: Stop Flag Is False",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gate: Stop Flag Is False": {
+      "main": [
+        [
+          {
+            "node": "Build Outgoing_Get SOAP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Outgoing_Get SOAP": {
+      "main": [
+        [
+          {
+            "node": "Telemarketing_Outgoing_Get",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telemarketing_Outgoing_Get": {
+      "main": [
+        [
+          {
+            "node": "Pick Free Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pick Free Record": {
+      "main": [
+        [
+          {
+            "node": "Build Lock Status SOAP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Lock Status SOAP": {
+      "main": [
+        [
+          {
+            "node": "Telemarketing_Status_Set Lock",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telemarketing_Status_Set Lock": {
+      "main": [
+        [
+          {
+            "node": "Validate Lock Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare ElevenLabs Payload": {
+      "main": [
+        [
+          {
+            "node": "ElevenLabs Outbound Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ElevenLabs Outbound Call": {
+      "main": [
+        [
+          {
+            "node": "Gate: ElevenLabs Success",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Gate: ElevenLabs Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ElevenLabs Callback Webhook": {
+      "main": [
+        [
+          {
+            "node": "Resolve Callback + Final Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolve Callback + Final Status": {
+      "main": [
+        [
+          {
+            "node": "Gate: Final Status Is Known",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gate: Final Status Is Known": {
+      "main": [
+        [
+          {
+            "node": "Build Final Status SOAP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Final Status SOAP": {
+      "main": [
+        [
+          {
+            "node": "Telemarketing_Status_Set Final",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telemarketing_Status_Set Final": {
+      "main": [
+        [
+          {
+            "node": "Check Stop Flag After Callback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Stop Flag After Callback": {
+      "main": [
+        [
+          {
+            "node": "Gate: Continue Next Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gate: Continue Next Record": {
+      "main": [
+        [
+          {
+            "node": "Trigger Next Start Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Lock Response": {
+      "main": [
+        [
+          {
+            "node": "Prepare ElevenLabs Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gate: ElevenLabs Success": {
+      "main": [
+        [
+          {
+            "node": "Store Active Call Mapping",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gate: ElevenLabs Failed": {
+      "main": [
+        [
+          {
+            "node": "Build Failed Start Unlock SOAP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Failed Start Unlock SOAP": {
+      "main": [
+        [
+          {
+            "node": "Telemarketing_Status_Set Failed Start Unlock",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Stop Flag After Failed Start": {
+      "main": [
+        [
+          {
+            "node": "Gate: Continue Next Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telemarketing_Status_Set Failed Start Unlock": {
+      "main": [
+        [
+          {
+            "node": "Check Stop Flag After Failed Start",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "7be90e6a-7c8e-4254-b25f-86ae39194539",
+  "meta": {
+    "instanceId": "7322f39f47aa98289e10fa6bb1b17210dd647439a97d0477c29b88c5973921a5"
+  },
+  "id": "rKY2JOG8Lkh9eFMN",
+  "tags": []
+}

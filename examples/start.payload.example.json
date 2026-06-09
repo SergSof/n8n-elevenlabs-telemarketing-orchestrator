@@ -1,0 +1,31 @@
+{
+  "command": "start",
+  "business_api_url": "http://YOUR_CRM_HOST/soap/IBusinessAPI",
+  "business_entity_id": "YOUR_ENTITY_ID",
+  "business_username": "YOUR_USERNAME",
+  "business_password": "YOUR_PASSWORD",
+  "BusinessId": "YOUR_BUSINESS_ID",
+  "CampaignID": "YOUR_CAMPAIGN_ID",
+  "userID": "YOUR_USER_ID",
+  "station_id": "1000",
+  "agent_id": "YOUR_ELEVENLABS_AGENT_ID",
+  "agent_phone_number_id": "YOUR_ELEVENLABS_PHONE_NUMBER_ID",
+  "parallel_calls": 1,
+  "crm_fetch_limit": 100,
+  "auto_continue_after_callback": false,
+  "self_start_webhook_url": "https://YOUR_N8N_HOST/webhook/telemarketing-elevenlabs-start",
+  "default_final_status_id": "10",
+  "failed_start_status_id": "10",
+  "status_map": {
+    "answered": "10",
+    "no_answer": "1",
+    "busy": "2",
+    "invalid_phone": "3",
+    "fax": "4",
+    "answering_machine": "5",
+    "not_interested": "11",
+    "confirm": "12",
+    "call_back": "13",
+    "failed": "14"
+  }
+}

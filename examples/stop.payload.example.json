@@ -1,0 +1,7 @@
+{
+  "command": "stop",
+  "business_api_url": "http://YOUR_CRM_HOST/soap/IBusinessAPI",
+  "BusinessId": "YOUR_BUSINESS_ID",
+  "CampaignID": "YOUR_CAMPAIGN_ID",
+  "userID": "YOUR_USER_ID"
+}

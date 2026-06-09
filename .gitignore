@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+
+node_modules/
+*.log
+
+.DS_Store
+Thumbs.db
+
+executions/
+exports/
+private/
+tmp/
+*.transcript.json
+*.execution.json
